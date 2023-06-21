@@ -72,33 +72,58 @@
                                         <input type="text" name="url" class="form-control" id="url" value="{{url}}" placeholder="URL or IP Address" required>
                                     </div>
                                 </div>
-                                <div class="row p-1">
-                                  <div class="col-4">
-                                      <label id="l1"for="url" class="form-label mt-2 "><b>Single Port :</b></label>
+                                <div id="single">
+                                  <div class="row p-1">
+                                    <div class="col-4">
+                                        <label id="l1"for="url" class="form-label mt-2 "><b>Single Port :</b></label>
+                                    </div>
+                                    <div class="col-8 ">
+                                        <input type="number" name="single_port" class="form-control" id="url"  placeholder="Enter Port Number">
+                                    </div>
                                   </div>
-                                  <div class="col-8 ">
-                                      <input type="texts" name="single_port" class="form-control" id="url" value="{{single_port}}" placeholder="Single Port">
+                                </div>
+                              <div id="shownone" style="display:none;">
+                                  <div class="row p-1">
+                                    <div class="col-4">
+                                        <label id="l1"for="url" class="form-label mt-2 "><b>Range Port :</b></label>
+                                    </div>
+                                    <div class="col-8 ">
+                                        <div class="row">
+                                          <div class="col-5">
+                                            <input type="number" name="start" class="form-control" id="url" placeholder="Start">
+                                          </div>
+                                          <div class="col-2 text-center"> 
+                                            <i class="bi bi-arrow-right" style="font-size:20pt;"></i>
+                                          </div>
+                                          <div class="col-5">
+                                            <input type="number" name="end" class="form-control" id="url" placeholder="End">
+                                          </div>
+                                        </div>
+                                    </div>
                                   </div>
                               </div>
-                                <div class="row p-1">
-                                  <div class="col-4">
-                                      <label id="l1"for="url" class="form-label mt-2 "><b>Range Port :</b></label>
-                                  </div>
-                                  <div class="col-8 ">
-                                      <div class="row">
-                                        <div class="col-5">
-                                          <input type="text" name="start" class="form-control" id="url" value="{{start}}" placeholder="Start">
-                                        </div>
-                                        <div class="col-2 text-center"> 
-                                          <i class="bi bi-arrow-right" style="font-size:20pt;"></i>
-                                        </div>
-                                        <div class="col-5">
-                                          <input type="text" name="end" class="form-control" id="url" value="{{end}}" placeholder="End">
-                                        </div>
-                                      </div>
-                                  </div>
-                              </div>
+                              <div class="container">
+                                <div class="row justify-content-end">
+                                  <div class="col ">
+                                    <div class="text-end">
+                                      <a class="btn btn-primary" onclick='
+                                        var x = document.getElementById("shownone");
+                                        var y = document.getElementById("single")
+                                        if (x.style.display === "none") 
+                                        {
+                                          x.style.display = "block";
+                                          y.style.display = "none";
 
+                                        } else 
+                                        {
+                                          x.style.display = "none";
+                                          y.style.display = "block";
+                                        }
+                                      '>Switch Mode</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </div>
                     </div>
                     <div class="container w-50 ">
@@ -177,6 +202,6 @@
   }
 
 
-</style>
 
+</style>
 </html>

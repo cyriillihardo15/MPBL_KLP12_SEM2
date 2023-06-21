@@ -114,9 +114,9 @@ def portscan():
                 closed_ports.append(port)
                 ports_info[port] = service.upper()
 
-    if start_port.isdigit() and end_port.isdigit():
+    if start_port.isdigit() and end_port.isdigit() and (not single_port):
         scan_range(host, int(start_port), int(end_port))
-    elif single_port.isdigit():
+    elif single_port.isdigit() and (not start_port) and (not end_port):
         scan_single(host, int(single_port))
 
     return render_template("project.html", open=open_ports, closed=closed_ports, info=ports_info, url=url, start=start_port, end=end_port, single_port=single_port, host=host)
