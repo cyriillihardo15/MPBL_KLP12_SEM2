@@ -40,6 +40,7 @@ def portscan():
         443: "HTTPS", 465: "SMTPS", 587: "SMTP", 593: "Microsoft DCOM",
         993: "IMAPS", 995: "POP3S", 3306: "MySQL", 8080: "HTTP Proxy",
     }
+
     open_ports = []
     closed_ports = []
 
@@ -51,7 +52,6 @@ def portscan():
 
     start_port = request.form['start']
     end_port = request.form['end']
-
     single_port = request.form['single_port']
 
     def scan_port(host, port):
@@ -73,13 +73,13 @@ def portscan():
             socket.setdefaulttimeout(1)
             result = s.connect_ex((host, port))
             if result == 0:
-                service = port_info.get(port)
                 open_ports.append(port)
             else:
                 closed_ports.append(port)
 
     def scan_single(host, port):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(0.1)
         result = s.connect_ex((host, port))
         if result == 0:
             open_ports.append(port)
