@@ -30,16 +30,18 @@ def project():
 
 @app.route('/portscan', methods=['POST'])
 def portscan():
-    ports = [7, 20, 21, 22, 23, 25, 53, 69, 80, 102, 110, 135,
-             137, 139, 143, 443, 465, 587, 593, 993, 995, 3306, 8080]
+    # ports = [20, 21, 22, 23, 25, 53, 69, 80, 102, 110, 135,
+    #          137, 139, 143, 443, 465, 587, 593, 993, 995, 3306, 8080]
 
-    port_info = {
-        7: "Echo", 20: "FTP", 21: "FTP", 22: "SSH", 23: "Telnet", 25: "SMTP",
-        53: "DNS", 69: "TFTP", 80: "HTTP", 102: "Iso-tsap", 110: "POP3",
-        135: "Microsoft EPMAP", 137: "NetBIOS", 139: "NetBIOS", 143: "IMAP",
-        443: "HTTPS", 465: "SMTPS", 587: "SMTP", 593: "Microsoft DCOM",
-        993: "IMAPS", 995: "POP3S", 3306: "MySQL", 8080: "HTTP Proxy",
-    }
+    # port_info = {
+    #     7: "Echo", 20: "FTP", 21: "FTP", 22: "SSH", 23: "Telnet", 25: "SMTP",
+    #     53: "DNS", 69: "TFTP", 80: "HTTP", 102: "Iso-tsap", 110: "POP3",
+    #     135: "Microsoft EPMAP", 137: "NetBIOS", 139: "NetBIOS", 143: "IMAP",
+    #     443: "HTTPS", 465: "SMTPS", 587: "SMTP", 593: "Microsoft DCOM",
+    #     993: "IMAPS", 995: "POP3S", 3306: "MySQL", 8080: "HTTP Proxy",
+    # }
+
+    ports_info = {}
 
     open_ports = []
     closed_ports = []
@@ -59,7 +61,9 @@ def portscan():
         s.settimeout(1)
         result = s.connect_ex((host, port))
         if result == 0:
+            service = socket.getservbyport(port)
             open_ports.append(port)
+            ports_info[port] = service.upper()
 
     def scan_range(host, start_port, end_port):
         for port in range(start_port, end_port+1):
@@ -67,36 +71,55 @@ def portscan():
             t.start()
             time.sleep(0.01)
 
-    def scan_list(host):
-        for port in ports:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            socket.setdefaulttimeout(1)
-            result = s.connect_ex((host, port))
-            if result == 0:
-                open_ports.append(port)
-            else:
-                closed_ports.append(port)
+    # def scan_list(host):
+    #     for port in ports:
+    #         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #         socket.setdefaulttimeout(1)
+    #         result = s.connect_ex((host, port))
+    #         if result == 0:
+    #             try:
+    #                 service = socket.getservbyport(port)
+    #                 open_ports.append(port)
+    #                 ports_info[port] = service
+    #             except:
+    #                 ports_info[port] = "Uknown"
+    #         else:
+    #             try:
+    #                 service = socket.getservbyport(port)
+    #                 closed_ports.append(port)
+    #                 ports_info[port] = service
+    #             except:
+    #                 ports_info[port] = "Uknown"
 
     def scan_single(host, port):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(0.1)
+        s.settimeout(1)
         result = s.connect_ex((host, port))
         if result == 0:
-            open_ports.append(port)
+            try:
+                service = socket.getservbyport(port)
+                open_ports.append(port)
+                ports_info[port] = service.upper()
+            except:
+                service = "Unknown"
+                open_ports.append(port)
+                ports_info[port] = service.upper()
         else:
-            closed_ports.append(port)
+            try:
+                service = socket.getservbyport(port)
+                closed_ports.append(port)
+                ports_info[port] = service.upper()
+            except:
+                service = "Unknown"
+                closed_ports.append(port)
+                ports_info[port] = service.upper()
 
-    if start_port.strip() == "" and end_port.strip() == "":
-        if single_port.isdigit():
-            scan_single(host, int(single_port))
-        else:
-            scan_list(host)
-    elif start_port.isdigit() and end_port.isdigit():
+    if start_port.isdigit() and end_port.isdigit():
         scan_range(host, int(start_port), int(end_port))
     elif single_port.isdigit():
         scan_single(host, int(single_port))
 
-    return render_template("project.html", open=open_ports, closed=closed_ports, info=port_info, url=url, start=start_port, end=end_port, single_port=single_port, host=host)
+    return render_template("project.html", open=open_ports, closed=closed_ports, info=ports_info, url=url, start=start_port, end=end_port, single_port=single_port, host=host)
 
 
 if __name__ == '__main__':
