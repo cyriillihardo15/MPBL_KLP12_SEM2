@@ -36,7 +36,7 @@
           <div class="row d-flex justify-content-center">
             <div class="col-lg-6 text-center">
               <h2>Project</h2>
-              <p>This is part of our mini PBL project, namely the port scanner project</p>
+              <p>This is our Mini PBL project, namely the Python Port Scanner Application</p>
             </div>
           </div>
         </div>
@@ -160,8 +160,8 @@
                               {% for buka in open %}
                             <tr>
                               <th scope="row" >{{buka}}</th>
-                              <td><b>TCP</b></td>
                               <td ><b>{{info[buka]}}</b></td>
+                              <td><b></b></td>
                               <td class="text-success"><b>OPEN <i class="bi bi-check-circle-fill text-success"></i></b></td>
                             </tr>
                             {% endfor %}
@@ -169,7 +169,7 @@
                             <tr>
                               <th scope="row">{{tutup}}</th>
                               <td ><b>{{info[tutup]}}</b></td>
-                              <td><b>TCP</b></td>
+                              <td><b></b></td>
                               <td class="text-danger"><b>CLOSED <i class="bi bi-x-circle-fill text-danger"></i></b></td>
                             </tr>
                             {% endfor %}
