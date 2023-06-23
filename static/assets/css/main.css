@@ -1970,6 +1970,7 @@ section {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   width: 75%;
+  
 }
 #l1{
   font-size: 10pt;
@@ -2031,13 +2032,27 @@ section {
 }
 @media only screen and (max-width: 1000px) {
   #mainproject{
-    width: 95%;
+    width: 100%;
   }
   #iconsearch{
     display: none;
   }
   #d1{
-    width: 70%;
+    width: 90%;
+    margin-top: 5%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
-
+  #fg1{
+    background: none;
+  }
+  #rs{
+    width: 100%;
+  }
+  #cth{
+    width: 95%;
+  } 
+  #result1{
+    width: 95%;
+  }
 }

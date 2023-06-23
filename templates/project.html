@@ -82,7 +82,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              <div id="shownone" style="display:none;">
+                              <div id="shownone" style="display:none; ">
                                   <div class="row p-1">
                                     <div class="col-4">
                                         <label id="l1"for="url" class="form-label mt-2 "><b>Range Port :</b></label>
@@ -106,7 +106,7 @@
                                 <div class="row justify-content-end">
                                   <div class="col ">
                                     <div class="text-end">
-                                      <a class="btn btn-primary" onclick='
+                                      <a class="btn btn-primary mt-1" onclick='
                                         var x = document.getElementById("shownone");
                                         var y = document.getElementById("single")
                                         if (x.style.display === "none") 
@@ -119,7 +119,7 @@
                                           x.style.display = "none";
                                           y.style.display = "block";
                                         }
-                                      '>Switch Mode</a>
+                                      '><i class="bi bi-arrow-left-right"></i></a>
                                     </div>
                                   </div>
                                 </div>
@@ -136,11 +136,11 @@
                         </div>
                     </div>
                     <div class="container">
-                        <div id="result1" class="bg-dark pb-3 pt-2">
+                        <div id="result1" class="bg-dark pb-3 pt-3">
                             <h5><b>SCAN RESULT</b></h5>
                         </div>
                     </div>
-                    <div class="container">
+                    <div class="container" id="rs">
                       <div class="container bg-light p-2" id="cth">
                         <!-- {% for port in open %}<p style="color:green;"><b>Port {{port}} {{info[port]}} is Open</b></p>{% endfor %}
                         {% for port in closed %}<p style="color:red;"><b>Port {{port}} {{info[port]}} is Closed</b></p>{% endfor %} -->
@@ -151,6 +151,7 @@
                             <tr>
                               <th scope="col">Port</th>
                               <th scope="col">Service</th>
+                              <th scope="col">Protocol</th>
                               <th scope="col">Status</th>
                             </tr>
                           </thead>
@@ -159,15 +160,17 @@
                               {% for buka in open %}
                             <tr>
                               <th scope="row" >{{buka}}</th>
+                              <td><b>TCP</b></td>
                               <td ><b>{{info[buka]}}</b></td>
-                              <td class="text-success"><b>OPEN</b></td>
+                              <td class="text-success"><b>OPEN <i class="bi bi-check-circle-fill text-success"></i></b></td>
                             </tr>
                             {% endfor %}
                             {% for tutup in closed %}
                             <tr>
                               <th scope="row">{{tutup}}</th>
                               <td ><b>{{info[tutup]}}</b></td>
-                              <td class="text-danger"><b>CLOSED</b></td>
+                              <td><b>TCP</b></td>
+                              <td class="text-danger"><b>CLOSED <i class="bi bi-x-circle-fill text-danger"></i></b></td>
                             </tr>
                             {% endfor %}
                             </tr>
